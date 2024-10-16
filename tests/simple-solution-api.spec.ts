@@ -57,7 +57,9 @@ test('post order with incorrect data should receive code 400', async ({ request 
   expect(response.status()).toBe(StatusCodes.BAD_REQUEST)
 })
 
-test('PUT: Correct ID and valid key updates order and returns correct code', async ({ request }) => {
+test('PUT: Correct ID and valid key updates order and returns correct code', async ({
+  request,
+}) => {
   const requestHeaders = {
     api_key: '1234567890123456',
   }
@@ -95,7 +97,9 @@ test('PUT : Invalid  api-key is rejected as unauthorised    ', async ({ request 
   expect(response.status()).toBe(StatusCodes.UNAUTHORIZED)
 })
 
-test('PUT : Correct return code is returned in case orderID is out of range (BAD_REQUEST) ', async ({ request }) => {
+test('PUT : Correct return code is returned in case orderID is out of range (BAD_REQUEST) ', async ({
+  request,
+}) => {
   const requestHeaders = {
     api_key: '1234567890123456',
   }
@@ -114,44 +118,54 @@ test('PUT : Correct return code is returned in case orderID is out of range (BAD
   expect(response.status()).toBe(StatusCodes.BAD_REQUEST)
 })
 
-test('DELETE: Correct ID and valid key deletes order and returns success code 204(NO_CONTENT) ', async ({ request }) => {
+test('DELETE: Correct ID and valid key deletes order and returns success code 204(NO_CONTENT) ', async ({
+  request,
+}) => {
   const requestHeaders = {
     api_key: '1234567890123456',
   }
   const response = await request.delete('https://backend.tallinn-learning.ee/test-orders/9', {
-    headers: requestHeaders
+    headers: requestHeaders,
   })
   expect(response.status()).toBe(StatusCodes.NO_CONTENT)
 })
 
-test('DELETE: Request without valid api-key is rejected with correct return code ', async ({ request }) => {
+test('DELETE: Request without valid api-key is rejected with correct return code ', async ({
+  request,
+}) => {
   const requestHeaders = {
     api_key: '123456890123456',
   }
   const response = await request.delete('https://backend.tallinn-learning.ee/test-orders/9', {
-    headers: requestHeaders
+    headers: requestHeaders,
   })
   expect(response.status()).toBe(StatusCodes.UNAUTHORIZED)
 })
 
-test('DELETE: Invalid order ID fails as bad request with correct return code ', async ({ request }) => {
+test('DELETE: Invalid order ID fails as bad request with correct return code ', async ({
+  request,
+}) => {
   const requestHeaders = {
     api_key: '1234567890123456',
   }
   const response = await request.delete('https://backend.tallinn-learning.ee/test-orders/0', {
-    headers: requestHeaders
+    headers: requestHeaders,
   })
   expect(response.status()).toBe(StatusCodes.BAD_REQUEST)
 })
 
-
-test('GET: Correct error code is returned if username and password are correctly set with api-key', async ({ request }) => {
+test('GET: Correct error code is returned if username and password are correctly set with api-key', async ({
+  request,
+}) => {
   const requestHeaders = {
     api_key: '1234567890123456',
   }
-  const response = await request.get('https://backend.tallinn-learning.ee/test-orders?username=username&password=password', {
-    headers: requestHeaders
-  })
+  const response = await request.get(
+    'https://backend.tallinn-learning.ee/test-orders?username=username&password=password',
+    {
+      headers: requestHeaders,
+    },
+  )
   expect(response.status()).toBe(StatusCodes.OK)
 })
 
@@ -159,18 +173,24 @@ test('GET: Correct error code is returned if username is empty', async ({ reques
   const requestHeaders = {
     api_key: '1234567890123456',
   }
-  const response = await request.get('https://backend.tallinn-learning.ee/test-orders?username=&password=password', {
-    headers: requestHeaders
-  })
+  const response = await request.get(
+    'https://backend.tallinn-learning.ee/test-orders?username=&password=password',
+    {
+      headers: requestHeaders,
+    },
+  )
   expect(response.status()).toBe(StatusCodes.INTERNAL_SERVER_ERROR)
 })
 test('GET: Correct error code is returned if  password is empty', async ({ request }) => {
   const requestHeaders = {
     api_key: '1234567890123456',
   }
-  const response = await request.get('https://backend.tallinn-learning.ee/test-orders?username=username&password=', {
-    headers: requestHeaders
-  })
+  const response = await request.get(
+    'https://backend.tallinn-learning.ee/test-orders?username=username&password=',
+    {
+      headers: requestHeaders,
+    },
+  )
   expect(response.status()).toBe(StatusCodes.INTERNAL_SERVER_ERROR)
 })
 
@@ -198,6 +218,3 @@ test('PUT: Correct return code is returned in case orderID is out of range (BAD_
     }
   }
 })
-
-
-
