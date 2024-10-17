@@ -22,7 +22,7 @@ test('get order with incorrect id should receive code 400', async ({ request }) 
 })
 test('post order with correct data should receive code 200', async ({ request }) => {
   // prepare request body
-  const orderDto = new OrderDto("OPEN",0,"aleksei","+37256710032","test",1)
+  const orderDto = new OrderDto('OPEN', 0, 'aleksei', '+37256710032', 'test', 1)
 
   // Send a POST request to the server
   const response = await request.post('https://backend.tallinn-learning.ee/test-orders', {
@@ -35,7 +35,7 @@ test('post order with correct data should receive code 200', async ({ request })
 })
 test('post order with incorrect data should receive code 400', async ({ request }) => {
   // prepare request body
-  const orderDto = new OrderDto("CLOSED",0,"aleksei","+37256710032","test",1)
+  const orderDto = new OrderDto('CLOSED', 0, 'aleksei', '+37256710032', 'test', 1)
 
   // Send a POST request to the server
   const response = await request.post('https://backend.tallinn-learning.ee/test-orders', {
@@ -52,7 +52,7 @@ test('PUT: Correct ID and valid key updates order and returns correct code', asy
   const requestHeaders = {
     api_key: '1234567890123456',
   }
-  const orderDto = new OrderDto("OPEN",0,"aleksei","+37256710032","test",1)
+  const orderDto = new OrderDto('OPEN', 0, 'aleksei', '+37256710032', 'test', 1)
   const response = await request.put('https://backend.tallinn-learning.ee/test-orders/1', {
     headers: requestHeaders,
     data: orderDto,
@@ -87,7 +87,7 @@ test('PUT : Correct return code is returned in case orderID is out of range (BAD
   }
   const response = await request.put('https://backend.tallinn-learning.ee/test-orders/11', {
     headers: requestHeaders,
-    data: OrderDto.createOrderWithCorrectRandomData()
+    data: OrderDto.createOrderWithCorrectRandomData(),
   })
   expect(response.status()).toBe(StatusCodes.BAD_REQUEST)
 })
@@ -172,7 +172,7 @@ test('PUT: Correct return code is returned in case orderID is out of range (BAD_
   const requestHeaders = {
     api_key: '1234567890123456',
   }
-  const orderDto = new OrderDto("OPEN",0,"aleksei","+37256710032","test",1)
+  const orderDto = new OrderDto('OPEN', 0, 'aleksei', '+37256710032', 'test', 1)
 
   try {
     await axios.put('https://backend.tallinn-learning.ee/test-orders/11', orderDto, {
