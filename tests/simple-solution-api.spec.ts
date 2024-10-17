@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 import { StatusCodes } from 'http-status-codes'
 import axios, { AxiosError } from 'axios'
 import { OrderDto } from './dto/order-dto'
-
+const serviceURL = 'https://backend.tallinn-learning.ee/test-orders'
 test('get order with correct id should receive code 200', async ({ request }) => {
   // Build and send a GET request to the server
   const response = await request.get('https://backend.tallinn-learning.ee/test-orders/1')
@@ -184,4 +184,17 @@ test('PUT: Correct return code is returned in case orderID is out of range (BAD_
       expect(axiosError.response.status).toBe(StatusCodes.BAD_REQUEST)
     }
   }
+})
+
+test('SOFT: post order with correct data should receive code 200', async ({ request }) => {
+  // prepare request body with dto pattern
+  const requestBody = new OrderDto('OPEN', 0, 'John Doe', '+123456789', 'Urgent order', 0)
+  const response = await request.post(serviceURL, {
+    data: requestBody,
+  })
+  expect.soft(response.status()).toBe(StatusCodes.OK)
+  const responseBody = await response.json()
+  expect.soft(responseBody.status).toBe('OPEN')
+  expect.soft(responseBody.courierId).toBeDefined()
+  expect.soft(responseBody.customerName).toBeDefined()
 })
