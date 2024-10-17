@@ -1,5 +1,5 @@
 | Scenario # | Description                                                                                 |
-| ---------- | ------------------------------------------------------------------------------------------- |
+|------------|---------------------------------------------------------------------------------------------|
 | 1          | PUT: Correct ID and valid key updates order and returns correct code                        |
 | 2          | PUT : Invalid api-key is rejected as unauthorised                                           |
 | 3          | PUT : Correct return code is returned in case orderID is out of range (BAD_REQUEST          |
