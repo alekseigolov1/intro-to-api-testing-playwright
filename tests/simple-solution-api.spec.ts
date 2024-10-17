@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test'
 import { StatusCodes } from 'http-status-codes'
 import axios, { AxiosError } from 'axios'
+import { OrderDto } from './dto/order-dto'
 
 test('get order with correct id should receive code 200', async ({ request }) => {
   // Build and send a GET request to the server
@@ -21,17 +22,11 @@ test('get order with incorrect id should receive code 400', async ({ request }) 
 })
 test('post order with correct data should receive code 200', async ({ request }) => {
   // prepare request body
-  const requestBody = {
-    status: 'OPEN',
-    courierId: 0,
-    customerName: 'string',
-    customerPhone: 'string',
-    comment: 'string',
-    id: 0,
-  }
+  const orderDto = new OrderDto("OPEN",0,"aleksei","+37256710032","test",1)
+
   // Send a POST request to the server
   const response = await request.post('https://backend.tallinn-learning.ee/test-orders', {
-    data: requestBody,
+    data: orderDto,
   })
   // Log the response status and body
   console.log('response status:', response.status())
@@ -40,17 +35,11 @@ test('post order with correct data should receive code 200', async ({ request })
 })
 test('post order with incorrect data should receive code 400', async ({ request }) => {
   // prepare request body
-  const requestBody = {
-    status: 'CLOSED',
-    courierId: 0,
-    customerName: 'string',
-    customerPhone: 'string',
-    comment: 'string',
-    id: 0,
-  }
+  const orderDto = new OrderDto("CLOSED",0,"aleksei","+37256710032","test",1)
+
   // Send a POST request to the server
   const response = await request.post('https://backend.tallinn-learning.ee/test-orders', {
-    data: requestBody,
+    data: orderDto,
   })
   // Log the response status and body
   console.log('response status:', response.status())
@@ -63,17 +52,10 @@ test('PUT: Correct ID and valid key updates order and returns correct code', asy
   const requestHeaders = {
     api_key: '1234567890123456',
   }
-  const requestBody = {
-    status: 'OPEN',
-    courierId: 0,
-    customerName: 'test',
-    customerPhone: 'test',
-    comment: 'test',
-    id: 0,
-  }
+  const orderDto = new OrderDto("OPEN",0,"aleksei","+37256710032","test",1)
   const response = await request.put('https://backend.tallinn-learning.ee/test-orders/1', {
     headers: requestHeaders,
-    data: requestBody,
+    data: orderDto,
   })
   expect(response.status()).toBe(StatusCodes.OK)
 })
@@ -103,17 +85,9 @@ test('PUT : Correct return code is returned in case orderID is out of range (BAD
   const requestHeaders = {
     api_key: '1234567890123456',
   }
-  const requestBody = {
-    status: 'OPEN',
-    courierId: 0,
-    customerName: 'test',
-    customerPhone: 'test',
-    comment: 'test',
-    id: 0,
-  }
   const response = await request.put('https://backend.tallinn-learning.ee/test-orders/11', {
     headers: requestHeaders,
-    data: requestBody,
+    data: OrderDto.createOrderWithCorrectRandomData()
   })
   expect(response.status()).toBe(StatusCodes.BAD_REQUEST)
 })
@@ -198,17 +172,10 @@ test('PUT: Correct return code is returned in case orderID is out of range (BAD_
   const requestHeaders = {
     api_key: '1234567890123456',
   }
-  const requestBody = {
-    status: 'OPEN',
-    courierId: 0,
-    customerName: 'test',
-    customerPhone: 'test',
-    comment: 'test',
-    id: 0,
-  }
+  const orderDto = new OrderDto("OPEN",0,"aleksei","+37256710032","test",1)
 
   try {
-    await axios.put('https://backend.tallinn-learning.ee/test-orders/11', requestBody, {
+    await axios.put('https://backend.tallinn-learning.ee/test-orders/11', orderDto, {
       headers: requestHeaders,
     })
   } catch (error) {
