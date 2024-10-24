@@ -8,3 +8,14 @@
 | 6          | DELETE: Invalid order ID fails as bad request with correct return code                      |
 | 7          | GET: Correct error code is returned if username and password are correctly set with api-key |
 | 8          | GET: Empty username fails as server error                                                   |
+
+HW - 10
+
+| #   | Endpoint | Test                                                                                            |
+| --- | -------- | ----------------------------------------------------------------------------------------------- |
+| 1   | POST     | Calculate risk score with valid date for Low Risk level - positive decision - receive code 200  |
+| 2   | POST     | Calculate risk score with valid date for Medium risk level- positive decision- receive code 200 |
+| 3   | POST     | Calculate risk score with valid date for High risk - positive decision - receive code 200       |
+| 4   | POST     | Calculate risk score with data for negative decision - receive code 200                         |
+| 5   | POST     | Calculate risk score with invalid data (no incomes) - receive code 400                          |
+| 6   | POST     | Calculate risk score with invalid data (debt < 0) - receive code 400                            |
