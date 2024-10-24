@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import { StatusCodes } from 'http-status-codes'
-import { RiskDto } from './risk-dto'
+import { RiskDto } from './dto/risk-dto'
 
 test('Calculate risk score with valid data for Low Risk level - positive decision - receive code 200', async ({
   request,
