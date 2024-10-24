@@ -3,8 +3,8 @@ import { StatusCodes } from 'http-status-codes'
 import { RiskDto } from './risk-dto'
 
 test('Calculate risk score with valid data for Low Risk level - positive decision - receive code 200', async ({
-                                                                                                                request,
-                                                                                                              }) => {
+  request,
+}) => {
   const response = await request.post(
     'https://backend.tallinn-learning.ee/api/loan-calc/decision',
     {
@@ -26,8 +26,8 @@ test('Calculate risk score with valid data for Low Risk level - positive decisio
 })
 
 test('Calculate risk score with valid data for Medium risk level- positive decision- receive code 200', async ({
-                                                                                                                 request,
-                                                                                                               }) => {
+  request,
+}) => {
   const riskDto = RiskDto.calculateRiskScore()
   riskDto.loanPeriod = 9
   const response = await request.post(
@@ -40,7 +40,6 @@ test('Calculate risk score with valid data for Medium risk level- positive decis
   console.log('response body:', await response.json())
   expect.soft(response.status()).toBe(StatusCodes.OK)
 
-
   const responseBody = await response.json()
   expect.soft(response.status()).toBe(StatusCodes.OK)
   expect.soft(responseBody.riskScore).toBeDefined()
@@ -51,8 +50,8 @@ test('Calculate risk score with valid data for Medium risk level- positive decis
 })
 
 test('Calculate risk score with valid data for High risk - positive decision - receive code 200', async ({
-                                                                                                           request,
-                                                                                                         }) => {
+  request,
+}) => {
   const riskDto = RiskDto.calculateRiskScore()
   riskDto.loanPeriod = 3
   const response = await request.post(
@@ -74,8 +73,8 @@ test('Calculate risk score with valid data for High risk - positive decision - r
   expect.soft(responseBody.riskDecision).toBe('positive')
 })
 test('Calculate risk score with data for negative decision - receive code 200', async ({
-                                                                                         request,
-                                                                                       }) => {
+  request,
+}) => {
   const riskDto = RiskDto.calculateRiskScore()
   riskDto.income = 1000
   riskDto.loanPeriod = 36
@@ -99,8 +98,8 @@ test('Calculate risk score with data for negative decision - receive code 200', 
 })
 
 test('Calculate risk score with invalid data (no incomes) - receive code 400', async ({
-                                                                                        request,
-                                                                                      }) => {
+  request,
+}) => {
   const response = await request.post(
     'https://backend.tallinn-learning.ee/api/loan-calc/decision',
     {
@@ -113,8 +112,8 @@ test('Calculate risk score with invalid data (no incomes) - receive code 400', a
 })
 
 test('Calculate risk score with invalid data (debt < 0) - receive code 400', async ({
-                                                                                      request,
-                                                                                    }) => {
+  request,
+}) => {
   const riskDto = RiskDto.calculateInvalidRiskScore()
   riskDto.income = 1000
   riskDto.debt = -12
