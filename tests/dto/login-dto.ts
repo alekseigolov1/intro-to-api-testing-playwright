@@ -1,5 +1,5 @@
-export class LoginDto{
-  username : string
+export class LoginDto {
+  username: string
   password: string
 
   private constructor(username: string, password: string) {
@@ -7,17 +7,10 @@ export class LoginDto{
     this.password = password
   }
 
-  static createLoginWithCorrectCredentials(): LoginDto{
-    return new LoginDto(
-      process.env.USER || '',
-      process.env.PASSWORD || ''
-    )
+  static createLoginWithCorrectCredentials(): LoginDto {
+    return new LoginDto(process.env.USER || '', process.env.PASSWORD || '')
   }
-  static createLoginWithIncorrectCredentials(): LoginDto{
-    return new LoginDto(
-     'aleksei',
-      'mypassword'
-    )
+  static createLoginWithIncorrectCredentials(): LoginDto {
+    return new LoginDto('aleksei', 'mypassword')
   }
-
 }
