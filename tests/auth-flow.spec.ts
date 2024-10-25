@@ -6,7 +6,7 @@ const serviceURL = 'https://backend.tallinn-learning.ee/'
 const loginPath = 'login/student'
 
 test('correct username and password should return correct error code 401', async ({ request }) => {
-  const loginDto = LoginDto.createLoginWithCorrectCredentials()
+  const loginDto = LoginDto.createLoginWithIncorrectCredentials()
 
   const response = await request.post(`${serviceURL}${loginPath}`, {
     data: loginDto,
