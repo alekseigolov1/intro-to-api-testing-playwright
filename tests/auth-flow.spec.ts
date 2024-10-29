@@ -43,3 +43,14 @@ test('Correct username and password should return status code 200 and a valid JW
   const responseBody = await response.text()
   expect(jwtPattern.test(responseBody)).toBeTruthy()
 })
+
+
+test('Invalid HTTP method should return correct error code', async ({ request }) => {
+  const loginDto = LoginDto.createLoginWithCorrectCredentials()
+
+  const response = await request.get(`${serviceURL}${loginPath}`, {
+    data: loginDto,
+  })
+
+  expect(response.status()).toBe(StatusCodes.METHOD_NOT_ALLOWED)
+})
