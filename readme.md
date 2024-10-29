@@ -20,10 +20,9 @@ HW - 10
 | 5   | POST     | Calculate risk score with invalid data (no incomes) - receive code 400                          |
 | 6   | POST     | Calculate risk score with invalid data (debt < 0) - receive code 400                            |
 
+HW - 11
 
-HW - 11 
-
-| # | Endpoint | Test                                                                                            |
-|---|----------|-------------------------------------------------------------------------------------------------|
-| 1 | POST     | Correct username and password should return status code 200 and a valid JWT                     |
-| 2 | GET      | Calculate risk score with valid date for Medium risk level- positive decision- receive code 200 |
+| #   | Endpoint | Test                                                                                            |
+| --- | -------- | ----------------------------------------------------------------------------------------------- |
+| 1   | POST     | Correct username and password should return status code 200 and a valid JWT                     |
+| 2   | GET      | Calculate risk score with valid date for Medium risk level- positive decision- receive code 200 |

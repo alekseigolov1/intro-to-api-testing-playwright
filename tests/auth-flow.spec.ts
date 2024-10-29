@@ -29,7 +29,9 @@ test('Correct username and password should return correct error code 200', async
 
 //HW - 11
 
-test('Correct username and password should return status code 200 and a valid JWT', async ({ request }) => {
+test('Correct username and password should return status code 200 and a valid JWT', async ({
+  request,
+}) => {
   const loginDto = LoginDto.createLoginWithCorrectCredentials()
 
   const response = await request.post(`${serviceURL}${loginPath}`, {
