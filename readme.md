@@ -23,6 +23,6 @@ HW - 10
 HW - 11
 
 | #   | Endpoint | Test                                                                              |
-| --- |----------|-----------------------------------------------------------------------------------|
+| --- | -------- | --------------------------------------------------------------------------------- |
 | 1   | POST     | Correct username and password should return status code - 200(OK) and a valid JWT |
 | 2   | POST     | Invalid HTTP method should return correct error code - 405(Method not allowed)    |
