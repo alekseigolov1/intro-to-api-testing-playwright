@@ -19,3 +19,10 @@ HW - 10
 | 4   | POST     | Calculate risk score with data for negative decision - receive code 200                         |
 | 5   | POST     | Calculate risk score with invalid data (no incomes) - receive code 400                          |
 | 6   | POST     | Calculate risk score with invalid data (debt < 0) - receive code 400                            |
+
+HW - 11
+
+| #   | Endpoint | Test                                                                              |
+| --- | -------- | --------------------------------------------------------------------------------- |
+| 1   | POST     | Correct username and password should return status code - 200(OK) and a valid JWT |
+| 2   | POST     | Invalid HTTP method should return correct error code - 405(Method not allowed)    |
