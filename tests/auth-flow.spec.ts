@@ -54,3 +54,18 @@ test('Invalid HTTP method should return correct error code', async ({ request })
   expect(response.status()).toBe(StatusCodes.METHOD_NOT_ALLOWED)
   console.log('response status:', response.status())
 })
+
+test('succesfull authorization and order creation', async ({
+                                                                                             request,
+                                                                                           }) => {
+  const loginDto = LoginDto.createLoginWithCorrectCredentials()
+
+  const response = await request.post(`${serviceURL}${loginPath}`, {
+    data: loginDto,
+  })
+
+  expect(response.status()).toBe(StatusCodes.OK)
+  console.log('response status:', response.status())
+  const jwt = await response.text()
+  console.log(jwt)
+})
