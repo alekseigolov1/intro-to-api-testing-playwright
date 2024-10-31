@@ -57,9 +57,10 @@ test('Invalid HTTP method should return correct error code', async ({ request })
   console.log('response status:', response.status())
 })
 
-test('succesfull authorization and order creation', async ({ request }) => {
+test('successfully  authorization and order creation', async ({ request }) => {
   const loginDto = LoginDto.createLoginWithCorrectCredentials()
-
+  const orderDto = OrderDto.createOrderWithCorrectRandomData()
+  orderDto.id = undefined
   const response = await request.post(`${serviceURL}${loginPath}`, {
     data: loginDto,
   })
@@ -67,12 +68,15 @@ test('succesfull authorization and order creation', async ({ request }) => {
   expect(response.status()).toBe(StatusCodes.OK)
   console.log('response status:', response.status())
   const jwt = await response.text()
+
   const orderResponse = await request.post(`${serviceURL}${orderPath}`, {
-    data: OrderDto.createOrderWithCorrectRandomData(),
-    headers:{
+    data: orderDto,
+    headers: {
       Authorization: `Bearer ${jwt}`,
-    }
+    },
   })
   const orderResponseJson = await orderResponse.json()
   console.log(orderResponseJson)
+  expect.soft(orderResponseJson.status).toBe('OPEN')
+  expect.soft(orderResponseJson.id).toBeDefined()
 })
