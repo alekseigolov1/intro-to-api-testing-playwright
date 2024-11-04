@@ -61,27 +61,37 @@ export class ApiClient {
   }
 
   async getOrderById(orderId: number): Promise<void> {
-    console.log(`Retrieving order with ID: ${orderId}...`)
+    console.log(`Fetching order with ID ${orderId}`)
     const response = await this.request.get(`${serviceURL}${orderPath}/${orderId}`, {
       headers: {
         Authorization: `Bearer ${this.jwt}`,
       },
     })
-    expect(response.status()).toBe(StatusCodes.OK)
-    const responseBody = await response.json()
-    console.log('Order details: ', responseBody)
+    console.log('Order response: ', response)
+
+    expect(response .status()).toBe(StatusCodes.OK)
+    const order = await response.json()
+    const {id} = order
+    expect.soft(id).toBeDefined()
+    expect.soft(id).toBe(orderId)
   }
 
+
   async deleteOrderById(orderId: number): Promise<void> {
-    console.log(`Deleting order with ID: ${orderId}...`)
+    console.log('Delete order...')
     const response = await this.request.delete(`${serviceURL}${orderPath}/${orderId}`, {
       headers: {
         Authorization: `Bearer ${this.jwt}`,
       },
     })
+    console.log('Delete response: ', response)
+
     expect(response.status()).toBe(StatusCodes.OK)
-    const responseBody = await response.json()
-    console.log('Delete response: ', responseBody)
-    expect(responseBody).toBe(true) // Expecting response body to be true
+    const body = await response.json()
+    console.log('Order deleted: ')
+    console.log(body)
+    expect.soft(body).toBe(true)
   }
+
+
 }
