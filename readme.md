@@ -27,10 +27,9 @@ HW - 11
 | 1   | POST     | Correct username and password should return status code - 200(OK) and a valid JWT |
 | 2   | POST     | Invalid HTTP method should return correct error code - 405(Method not allowed)    |
 
-
 HW - 12
 
-| # | Endpoint | Test                                                           |
-|---|----------|----------------------------------------------------------------|
-| 1 | POST     | Authorization and get Order by ID (without API client)         |
-| 2 | GET      | Authorization and deletion of order by ID (without API client) |
+| #   | Endpoint | Test                                                           |
+| --- | -------- | -------------------------------------------------------------- |
+| 1   | POST     | Authorization and get Order by ID (without API client)         |
+| 2   | GET      | Authorization and deletion of order by ID (without API client) |
