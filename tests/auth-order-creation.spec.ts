@@ -73,14 +73,12 @@ test('Authorize user, create order, retrieve order by ID, and then delete the or
 
   await apiClient.getOrderById(orderId)
 
-  await apiClient.deleteOrderById(orderId);
-
+  await apiClient.deleteOrderById(orderId)
 })
 
 test('Attempt to retrieve deleted order by ID - using api', async ({ request }) => {
   const apiClient = await ApiClient.getInstance(request)
   const orderId = await apiClient.createOrderAndReturnOrderId()
 
-  await apiClient.deleteOrderById(orderId);
-
+  await apiClient.deleteOrderById(orderId)
 })

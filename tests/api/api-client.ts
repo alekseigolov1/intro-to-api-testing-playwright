@@ -69,13 +69,12 @@ export class ApiClient {
     })
     console.log('Order response: ', response)
 
-    expect(response .status()).toBe(StatusCodes.OK)
+    expect(response.status()).toBe(StatusCodes.OK)
     const order = await response.json()
-    const {id} = order
+    const { id } = order
     expect.soft(id).toBeDefined()
     expect.soft(id).toBe(orderId)
   }
-
 
   async deleteOrderById(orderId: number): Promise<void> {
     console.log('Delete order...')
@@ -92,6 +91,4 @@ export class ApiClient {
     console.log(body)
     expect.soft(body).toBe(true)
   }
-
-
 }
