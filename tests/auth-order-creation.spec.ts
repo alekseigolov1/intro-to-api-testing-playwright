@@ -65,20 +65,20 @@ test('Authorization and deletion of order by ID (without API client)', async ({ 
   expect(verifyDeleteResponseBody).toBe('')
 })
 
+test('Authorize user, create order, retrieve order by ID, and then delete the order', async ({
+  request,
+}) => {
+  const apiClient = await ApiClient.getInstance(request)
+  const orderId = await apiClient.createOrderAndReturnOrderId()
 
-test('Authorize user, create order, retrieve order by ID, and then delete the order', async ({ request }) => {
-  const apiClient = await ApiClient.getInstance(request);
-  const orderId = await apiClient.createOrderAndReturnOrderId();
+  await apiClient.getOrderById(orderId)
 
-  await apiClient.getOrderById(orderId);
-
-  await apiClient.deleteOrderById(orderId);
-});
+  await apiClient.deleteOrderById(orderId)
+})
 
 test('Attempt to retrieve deleted order by ID', async ({ request }) => {
-  const apiClient = await ApiClient.getInstance(request);
-  const orderId = await apiClient.createOrderAndReturnOrderId();
+  const apiClient = await ApiClient.getInstance(request)
+  const orderId = await apiClient.createOrderAndReturnOrderId()
 
-  await apiClient.deleteOrderById(orderId);
-
-});
+  await apiClient.deleteOrderById(orderId)
+})
