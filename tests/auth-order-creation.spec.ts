@@ -4,13 +4,12 @@ import { ApiClient } from './api/api-client'
 import { LoginDto } from './dto/login-dto'
 import { OrderDto } from './dto/order-dto'
 
-
 const serviceURL = 'https://backend.tallinn-learning.ee/'
 const loginPath = 'login/student'
 const orderPath = 'orders'
 
 test.describe('Without Api Client', () => {
-//HW-12 - without api client
+  //HW-12 - without api client
   test('Authorization and get Order by ID (without API client)', async ({ request }) => {
     const loginDto = LoginDto.createLoginWithCorrectCredentials()
     const authResponse = await request.post(`${serviceURL}${loginPath}`, { data: loginDto })
@@ -69,18 +68,16 @@ test.describe('Using Api Client', () => {
     apiClient = await ApiClient.getInstance(request)
     orderId = await apiClient.createOrderAndReturnOrderId()
   })
-  test('Correct username and password should return correct error code 200', async ( ) => {
+  test('Correct username and password should return correct error code 200', async () => {
     expect.soft(orderId).toBeDefined()
   })
 
-
-  test('Authorization, order creation/deletion - using api client', async ( ) => {
+  test('Authorization, order creation/deletion - using api client', async () => {
     await apiClient.getOrderById(orderId)
     await apiClient.deleteOrderById(orderId)
   })
 
-  test('Attempt to retrieve deleted order by ID - using api client', async ( ) => {
-
+  test('Attempt to retrieve deleted order by ID - using api client', async () => {
     await apiClient.deleteOrderById(orderId)
   })
 })
