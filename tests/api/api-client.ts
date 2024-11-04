@@ -59,4 +59,36 @@ export class ApiClient {
 
     return responseBody.id
   }
+
+  async getOrderById(orderId: number): Promise<void> {
+    console.log(`Fetching order with ID ${orderId}`)
+    const response = await this.request.get(`${serviceURL}${orderPath}/${orderId}`, {
+      headers: {
+        Authorization: `Bearer ${this.jwt}`,
+      },
+    })
+    console.log('Order response: ', response)
+
+    expect(response.status()).toBe(StatusCodes.OK)
+    const order = await response.json()
+    const { id } = order
+    expect.soft(id).toBeDefined()
+    expect.soft(id).toBe(orderId)
+  }
+
+  async deleteOrderById(orderId: number): Promise<void> {
+    console.log('Delete order...')
+    const response = await this.request.delete(`${serviceURL}${orderPath}/${orderId}`, {
+      headers: {
+        Authorization: `Bearer ${this.jwt}`,
+      },
+    })
+    console.log('Delete response: ', response)
+
+    expect(response.status()).toBe(StatusCodes.OK)
+    const body = await response.json()
+    console.log('Order deleted: ')
+    console.log(body)
+    expect.soft(body).toBe(true)
+  }
 }
